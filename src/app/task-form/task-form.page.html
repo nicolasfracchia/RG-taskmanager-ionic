@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Task form
+      {{ title }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,8 +9,60 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Task form</ion-title>
+      <ion-title size="large">{{ title }}</ion-title>
     </ion-toolbar>
   </ion-header>
+  <form [formGroup]="tasksForm">
+    <ion-list>
+      <ion-item>
+        <ion-input label="Title" placeholder="Task title" formControlName="title" type="text" errorText="Please insert a title for this task."></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Category" placeholder="Task category" formControlName="category" type="text" errorText="Please set a category for this task."></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime-button datetime="task_date"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime id="task_date" formControlName="task_date" displayFormat="DD/MM/YYYY"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <ion-item>
+        <ion-select label="Priority level" placeholder="Select priority level" formControlName="priority_level">
+          <ion-select-option *ngFor="let p of priorityLevels" [value]="p">{{p}}</ion-select-option>
+          <ion-select-option value="ERROR">--- THIS WILL THROW AN ERROR ---</ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="priorityLevelFormControl.touched && priorityLevelFormControl.errors?.['required']">
+          Please select the priority level for this task.
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-select label="Progress level" placeholder="Select progress level" formControlName="progress_level">
+          <ion-select-option *ngFor="let p of progressLevels" [value]="p">{{p}}</ion-select-option>
+        </ion-select>
+        <ion-text color="danger" *ngIf="progressLevelFormControl.touched && progressLevelFormControl.errors?.['required']">
+            Please select the progress level for this task.
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-textarea label="Description" placeholder="Task description" formControlName="description" errorText="Please add a description for this task."></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-button (click)="submitForm()" [disabled]="tasksForm.invalid">SUBMIT</ion-button>
+      </ion-item>
+
+    </ion-list>
+  </form>
+
+
+
 
 </ion-content>

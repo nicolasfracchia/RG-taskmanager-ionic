@@ -40,7 +40,7 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button fill="clear" color="warning">Edit</ion-button>
+          <ion-button fill="clear" color="warning" [routerLink]="['/edit-task', task.id]">Edit</ion-button>
         </ion-col>
         <ion-col class="ion-text-end">
           <ion-button fill="clear" color="danger" (click)="deleteTask(task)">Delete</ion-button>

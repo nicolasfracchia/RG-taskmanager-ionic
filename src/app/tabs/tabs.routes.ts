@@ -12,7 +12,12 @@ export const routes: Routes = [
           import('../tasks/tasks.page').then((m) => m.TasksPage),
       },
       {
-        path: 'task-form',
+        path: 'new-task',
+        loadComponent: () =>
+          import('../task-form/task-form.page').then((m) => m.TaskFormPage),
+      },
+      {
+        path: 'edit-task/:task-id',
         loadComponent: () =>
           import('../task-form/task-form.page').then((m) => m.TaskFormPage),
       },

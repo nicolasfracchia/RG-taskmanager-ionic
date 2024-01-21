@@ -36,7 +36,6 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class TasksPage {
   tasks!: Itask[];
-  status_message: {type: string, message: string, show: boolean} = {type: '', message: "", show: false}
   
   getTasks(){
     this._taskService.getTasks().subscribe((results) => {
@@ -72,6 +71,10 @@ export class TasksPage {
     private datePipe: DatePipe,
     private toastController: ToastController
   ){
+    this.getTasks();
+  }
+
+  ionViewDidEnter() {
     this.getTasks();
   }
 
