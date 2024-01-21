@@ -12,5 +12,41 @@
       <ion-title size="large">Tasks</ion-title>
     </ion-toolbar>
   </ion-header>
-  
+
+  <ion-card *ngFor="let task of tasks">
+    <ion-card-header [color]="setPriorityColor(task.priority_level)">
+      <ion-card-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{ task.title }}</ion-col>
+            <ion-col class="ion-text-end">{{ task.category }}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card-subtitle [color]="setPriorityColor(task.priority_level)">
+        <ion-grid>
+          <ion-row>
+            <ion-col>{{ task.task_date | date }}</ion-col>
+            <ion-col class="ion-text-end">{{ task.priority_level }}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-subtitle>
+      {{ task.description }}
+    </ion-card-content>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button fill="clear" color="warning">Edit</ion-button>
+        </ion-col>
+        <ion-col class="ion-text-end">
+          <ion-button fill="clear" color="danger" (click)="deleteTask(task)">Delete</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
 </ion-content>
